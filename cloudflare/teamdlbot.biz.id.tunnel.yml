@@ -1,0 +1,17 @@
+tunnel: botvlix-teamdl
+credentials-file: C:\Users\mauta\.cloudflared\8526eb2d-1be3-477b-85f7-5eda9d1bcd29.json
+
+ingress:
+  - hostname: teamdlbot.biz.id
+    service: http://localhost:3001
+  - hostname: www.teamdlbot.biz.id
+    service: http://localhost:3001
+  - service: http_status:404
+
+
+
+
+
+
+
+

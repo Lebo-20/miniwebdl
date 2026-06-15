@@ -1,0 +1,78 @@
+name: Build and Deploy APK
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'mobile/**'
+      - '.github/workflows/**'
+  workflow_dispatch: # Memungkinkan trigger manual dari halaman GitHub Actions
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: |
+          cd mobile
+          flutter pub get
+
+      - name: Generate Android Platform Folders
+        run: |
+          cd mobile
+          flutter create --org com.teamdl.app .
+
+      - name: Build Release APK
+        run: |
+          cd mobile
+          flutter build apk --release
+
+      - name: Upload APK as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: mobile/build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Commit and Push APK back to Web Directory
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Buat folder jika belum ada (safety check)
+          mkdir -p apps/web/public
+          
+          # Salin file APK hasil build ke folder public website
+          cp mobile/build/app/outputs/flutter-apk/app-release.apk apps/web/public/app-release.apk
+          
+          # Commit & Push kembali ke repositori
+          git add apps/web/public/app-release.apk
+          if git diff-index --quiet HEAD; then
+            echo "Tidak ada perubahan pada APK."
+          else
+            git commit -m "chore: auto-deploy compiled release APK [skip ci]"
+            git push
+          fi

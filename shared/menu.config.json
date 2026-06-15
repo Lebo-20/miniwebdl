@@ -1,0 +1,59 @@
+{
+  "brand": "TEAMDL",
+  "primaryActions": [
+    {
+      "id": "mini_web",
+      "label": "Mini Web",
+      "path": "/",
+      "type": "web_app"
+    },
+    {
+      "id": "buy_vip",
+      "label": "Beli VIP",
+      "path": "/vip",
+      "type": "web_app"
+    },
+    {
+      "id": "admin_panel",
+      "label": "Admin Panel",
+      "path": "/admin",
+      "type": "url"
+    }
+  ],
+  "sections": [
+    {
+      "id": "home",
+      "label": "Home",
+      "path": "/"
+    },
+    {
+      "id": "drama",
+      "label": "Drama",
+      "path": "/?category=drama"
+    },
+    {
+      "id": "movie",
+      "label": "Movie",
+      "path": "/?category=movie"
+    },
+    {
+      "id": "platform",
+      "label": "Platform",
+      "path": "/platform"
+    },
+    {
+      "id": "source",
+      "label": "Source",
+      "path": "/source"
+    },
+    {
+      "id": "history",
+      "label": "History",
+      "path": "/history"
+    }
+  ],
+  "search": {
+    "label": "Pencarian All",
+    "path": "/search"
+  }
+}

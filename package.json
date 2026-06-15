@@ -1,0 +1,22 @@
+{
+  "name": "miniweb-telegram-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Telegram-first mini web platform with VIP, admin panel, and all-content search.",
+  "type": "module",
+  "scripts": {
+    "start": "powershell -ExecutionPolicy Bypass -File scripts/start-all.ps1",
+    "stop": "powershell -ExecutionPolicy Bypass -File scripts/stop-all.ps1",
+    "dev:web": "node apps/web/server.js",
+    "dev:bot": "node apps/bot/bot.js",
+    "setup:cloudflare": "powershell -ExecutionPolicy Bypass -File scripts/setup-cloudflare-domain.ps1",
+    "monitor:domain": "powershell -ExecutionPolicy Bypass -File scripts/monitor-domain.ps1",
+    "check": "node --check apps/web/server.js && node --check apps/web/public/app.js && node --check apps/web/public/admin.js && node --check apps/bot/bot.js && node --check apps/bot/src/config.js && node --check apps/bot/src/handlers.js && node --check apps/bot/src/keyboards.js && node --check apps/bot/src/telegram-api.js && node --check apps/bot/src/data/catalog.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "jose": "^6.2.3"
+  }
+}

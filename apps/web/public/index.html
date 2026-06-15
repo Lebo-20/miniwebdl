@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <title>TEAMDL - Streaming Drama Pendek</title>
+    <meta name="description" content="TEAMDL streaming drama pendek premium dengan halaman home, detail drama, dan media player.">
+    <link rel="stylesheet" href="/styles.css?v=20260611-watchplayer-cleanup">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  </head>
+  <body>
+    <header class="site-nav" id="siteNav">
+      <a class="brand brand-logo" href="/" aria-label="TEAMDL">TEAMDL</a>
+      <nav class="desktop-menu" aria-label="Menu utama">
+        <a href="/" data-nav="home">Home</a>
+        <a href="/new" data-nav="new">Baru</a>
+        <a href="/platform" data-nav="platform">Platform</a>
+        <a href="/moviebox" data-nav="moviebox">MovieBox</a>
+        <a href="/profile" data-nav="profile">Profil</a>
+        <a href="/search" data-nav="search">Cari</a>
+        <a href="/vip" data-nav="vip">VIP</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="global-language" id="globalLanguage">
+          <button class="language-btn" type="button" data-language-toggle>Lang <span id="languageLabel">All</span></button>
+          <div class="language-menu" id="languageMenu"></div>
+        </div>
+        <button class="nav-icon" id="notificationBtn" type="button" aria-label="Notifikasi" style="border: 0; color: inherit; outline: none; cursor: pointer; padding: 0; position: relative;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <span class="nav-notif-badge" id="navNotifBadge" style="display: none;"></span>
+        </button>
+        <a class="nav-icon icon-search" href="/search" aria-label="Cari"></a>
+        <a class="vip-chip" href="/vip">VIP</a>
+      </div>
+    </header>
+
+    <main id="app"></main>
+
+        <nav class="bottom-nav" aria-label="Menu mobile">
+      <a href="/search" data-nav="search"><span class="tab-icon icon-search" aria-hidden="true"></span><small>Cari</small></a>
+      <a href="/platform" data-nav="platform"><span class="tab-icon icon-platform" aria-hidden="true"></span><small>Platform</small></a>
+      <a href="/" data-nav="home" class="nav-home-bubble">
+        <div class="home-bubble-inner"><span class="tab-icon icon-home" aria-hidden="true"></span></div>
+        <small>Home</small>
+      </a>
+      <a href="/vip" data-nav="vip"><span class="tab-icon icon-vip" aria-hidden="true"></span><small>VIP</small></a>
+      <a href="/profile" data-nav="profile"><span class="tab-icon icon-profile" aria-hidden="true"></span><small>Profil</small></a>
+    </nav>
+
+    <!-- FAQ Dialog Overlay -->
+    <div id="faqDialogOverlay" class="help-dialog-overlay" style="display: none;">
+      <div class="help-dialog-card">
+        <div class="help-dialog-header">
+          <h3>Tanya Jawab (FAQ)</h3>
+          <button class="close-dialog-btn" id="closeFaqBtn">&times;</button>
+        </div>
+        <div class="help-dialog-body scrollable">
+          <div class="faq-search-wrapper" style="margin-bottom: 12px;">
+            <input type="text" id="faqSearchInput" placeholder="Cari pertanyaan..." class="faq-search-input">
+          </div>
+          <div class="faq-accordion-list">
+            <div class="faq-item">
+              <div class="faq-question"><span>Bagaimana cara mengaktifkan VIP?</span> <span class="faq-arrow">?</span></div>
+              <div class="faq-answer">Untuk mengaktifkan VIP, buka halaman VIP dari menu navigasi, pilih paket durasi yang diinginkan (7/14/30/60/90 hari), lalu bayar via QRIS dan upload bukti transfer. Admin akan memverifikasi pembayaran Anda dalam waktu 1×24 jam.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question"><span>Kenapa video drama tidak bisa diputar atau macet?</span> <span class="faq-arrow">?</span></div>
+              <div class="faq-answer">Jika video macet atau tidak bisa diputar:
+1. Coba segarkan (refresh) halaman.
+2. Jika membuka di dalam aplikasi Telegram, silakan salin tautan dan buka di browser eksternal seperti Google Chrome atau Safari.
+3. Bersihkan cache browser Anda atau gunakan tab Samaran (Incognito).</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question"><span>Kenapa episode 13 ke atas tidak bisa diakses?</span> <span class="faq-arrow">?</span></div>
+              <div class="faq-answer">Aturan di TEAMDL menetapkan bahwa episode 1 s.d 12 dari setiap drama adalah gratis. Episode 13 ke atas dikunci sebagai konten VIP premium dan memerlukan langganan VIP aktif untuk membukanya.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question"><span>Bagaimana cara meningkatkan level menonton saya?</span> <span class="faq-arrow">?</span></div>
+              <div class="faq-answer">Level menonton Anda bertambah secara dinamis berdasarkan jumlah waktu tonton video riil Anda di website. Cukup putar drama favorit Anda dan level Anda akan otomatis naik!</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question"><span>Apakah riwayat menonton saya disimpan secara otomatis?</span> <span class="faq-arrow">?</span></div>
+              <div class="faq-answer">Ya, riwayat menonton 7 hari terakhir dan drama favorit Anda disimpan di browser dan disinkronkan ke database Firestore secara otomatis jika akun Telegram Anda terhubung.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Chat Dialog Overlay -->
+    <div id="chatDialogOverlay" class="help-dialog-overlay" style="display: none;">
+      <div class="help-dialog-card chat-card-layout">
+        <div class="help-dialog-header">
+          <div class="chat-header-info">
+            <span class="chat-status-dot online"></span>
+            <div>
+              <h3>Live Chat Admin & AI</h3>
+              <small>Online: Admin & Virtual Assistant</small>
+            </div>
+          </div>
+          <button class="close-dialog-btn" id="closeChatBtn">&times;</button>
+        </div>
+        <div class="chat-messages-container scrollable" id="chatMessagesList">
+          <!-- Messages will be rendered here -->
+          <div class="chat-bubble system">
+            <p>Selamat datang di Live Chat TEAMDL! Silakan kirim pesan Anda, atau pilih salah satu topik kendala di bawah untuk bantuan instan:</p>
+            <div class="chat-quick-replies">
+              <button class="quick-reply-btn" type="button" data-topic="VIP Belum Aktif / Masuk">VIP Belum Aktif / Masuk</button>
+              <button class="quick-reply-btn" type="button" data-topic="Video Loading Lama / Buffering">Video Loading Lama / Buffering</button>
+              <button class="quick-reply-btn" type="button" data-topic="Video Error / Tidak Bisa Diputar">Video Error / Tidak Bisa Diputar</button>
+              <button class="quick-reply-btn" type="button" data-topic="Tanya hal lain ke Admin">Tanya Hal Lain</button>
+            </div>
+          </div>
+        </div>
+        <div class="chat-typing-indicator" id="chatTypingIndicator" style="display: none;">
+          <span></span><span></span><span></span>
+        </div>
+        <form class="chat-input-bar" id="chatInputForm" style="display: flex; align-items: center; gap: 8px;">
+          <label for="chatImageFileInput" class="chat-file-label" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); flex-shrink: 0; opacity: 0.8; transition: all 0.2s ease;" title="Kirim Gambar / Tangkapan Layar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+          </label>
+          <input type="file" id="chatImageFileInput" accept="image/*" style="display: none;">
+          <input type="text" id="chatMessageInput" placeholder="Tulis pesan Anda..." required autocomplete="off">
+          <button type="submit" class="chat-send-btn">Kirim</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Admin Ticket Panel Overlay (only visible for admin Telegram ID) -->
+    <div id="adminTicketOverlay" class="help-dialog-overlay" style="display: none;">
+      <div class="help-dialog-card admin-ticket-card">
+        <div class="help-dialog-header">
+          <div class="chat-header-info">
+            <span class="chat-status-dot online"></span>
+            <div>
+              <h3>Panel Tiket Masuk</h3>
+              <small id="adminTicketCount">Memuat tiket...</small>
+            </div>
+          </div>
+          <button class="close-dialog-btn" id="closeAdminTicketBtn">&times;</button>
+        </div>
+
+        <!-- Ticket List View -->
+        <div id="adminTicketListView">
+          <div id="adminTicketList" class="admin-ticket-list scrollable">
+            <div class="admin-ticket-loading">Memuat daftar tiket...</div>
+          </div>
+        </div>
+
+        <!-- Ticket Chat View (shown when a ticket is selected) -->
+        <div id="adminTicketChatView" style="display: none; flex-direction: column; flex: 1; overflow: hidden;">
+          <div class="admin-chat-header">
+            <button class="admin-back-btn" id="adminBackToListBtn">Kembali</button>
+            <div id="adminChatTicketInfo" class="admin-chat-title"></div>
+          </div>
+          <div class="chat-messages-container scrollable" id="adminChatMessages"></div>
+          <form class="chat-input-bar" id="adminReplyForm" style="display: flex; gap: 8px;">
+            <input type="text" id="adminReplyInput" placeholder="Tulis balasan..." required autocomplete="off">
+            <button type="submit" class="chat-send-btn">Kirim</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="/vendor/hls.min.js?v=20260603"></script>
+    <script src="/app.js?v=20260611-watchplayer-cleanup" type="module"></script>
+  </body>
+</html>

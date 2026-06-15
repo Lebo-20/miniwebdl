@@ -1,0 +1,42 @@
+export const platforms = [
+  "StarShort",
+  "DramaBite",
+  "FreeReels",
+  "FunDrama",
+  "MicroDrama",
+  "Vigloo",
+  "BiliTV",
+  "DramaBox",
+  "DramaWave",
+  "NetShort",
+  "iDrama",
+  "ShortMax",
+  "GoodShort",
+  "Melolo",
+  "Velolo",
+  "ReelShort",
+  "FlickReels",
+  "Stardusttv",
+  "Serial+",
+  "DotDrama",
+  "RapidTV",
+  "ShortsWave",
+  "DramaNova",
+  "CubeTV",
+  "ReelBuzz",
+  "FlareFlow",
+  "MoboReels",
+  "HappyShort",
+  "Reelife",
+  "PineDrama",
+  "FlexTV",
+  "Realala"
+];
+
+export const catalogItems = [
+  { title: "Hidden Moon", type: "Drama", platform: "Viu" },
+  { title: "City of Stars", type: "Drama", platform: "WeTV" },
+  { title: "Midnight Signal", type: "Movie", platform: "Netflix" },
+  { title: "Hidden Moon Episode 12", type: "Episode", platform: "Viu" },
+  { title: "VIP Collection", type: "Premium", platform: "TEAMDL" }
+];
