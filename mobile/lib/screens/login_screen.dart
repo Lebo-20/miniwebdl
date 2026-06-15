@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         fillColor: const Color(0xFF102846),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.white20),
+                          borderSide: const BorderSide(color: Color(0x33FFFFFF)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -241,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: Colors.white80, fontSize: 13),
+              style: const TextStyle(color: Color(0xCCFFFFFF), fontSize: 13),
             ),
           ),
         ],

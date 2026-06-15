@@ -267,7 +267,7 @@ class _AdminUserModerationTabState extends State<AdminUserModerationTab> {
                             subtitle: Text('$username • ID: $tgId\nStatus: ${status.toUpperCase()}', style: const TextStyle(color: Colors.white54, fontSize: 11)),
                             isThreeLine: true,
                             trailing: PopupMenuButton<String>(
-                              dropdownColor: const Color(0xFF102846),
+                              color: const Color(0xFF102846),
                               style: const TextStyle(color: Colors.white),
                               onSelected: (action) => _handleAction(tgId, action),
                               itemBuilder: (context) => [
@@ -483,7 +483,7 @@ class _AdminStreamMonitorTabState extends State<AdminStreamMonitorTab> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.between,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('LOG ERROR REALTIME', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                 TextButton.icon(
@@ -518,7 +518,7 @@ class _AdminStreamMonitorTabState extends State<AdminStreamMonitorTab> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.between,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   type.toUpperCase(),
