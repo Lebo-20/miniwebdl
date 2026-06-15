@@ -268,7 +268,7 @@ class _AdminUserModerationTabState extends State<AdminUserModerationTab> {
                             isThreeLine: true,
                             trailing: PopupMenuButton<String>(
                               color: const Color(0xFF102846),
-                              style: const TextStyle(color: Colors.white),
+                              icon: const Icon(Icons.more_vert, color: Colors.white54),
                               onSelected: (action) => _handleAction(tgId, action),
                               itemBuilder: (context) => [
                                 PopupMenuItem(
