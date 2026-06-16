@@ -14,11 +14,35 @@ import 'downloads/download_screen.dart';
 import 'screens/help_screen.dart';
 import 'admin/admin_dashboard.dart';
 import 'services/fcm_service.dart';
+import 'services/api_service.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  try {
+    final api = ApiService();
+    final config = await api.getFirebaseConfig();
+    
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: config['apiKey'] ?? '',
+        appId: config['appId'] ?? '',
+        messagingSenderId: config['messagingSenderId'] ?? '',
+        projectId: config['projectId'] ?? '',
+        authDomain: config['authDomain'],
+        storageBucket: config['storageBucket'],
+        measurementId: config['measurementId'],
+      ),
+    );
+    print("Firebase default app initialized at startup.");
+  } catch (e) {
+    print("Failed to initialize Firebase at startup: $e. Running offline/no-fcm mode.");
+  }
+  
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

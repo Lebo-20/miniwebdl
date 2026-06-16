@@ -1,17 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class FcmService {
-  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
   final GlobalKey<NavigatorState> navigatorKey;
 
   FcmService({required this.navigatorKey});
 
   // Initialize notifications
   Future<void> initialize() async {
+    if (Firebase.apps.isEmpty) {
+      print('FCM Service: Firebase is not initialized yet. Skipping notification setup.');
+      return;
+    }
+
     try {
+      final fcm = FirebaseMessaging.instance;
+
       // 1. Request permission (iOS & Android 13+)
-      NotificationSettings settings = await _fcm.requestPermission(
+      NotificationSettings settings = await fcm.requestPermission(
         alert: true,
         announcement: false,
         badge: true,
@@ -24,7 +31,7 @@ class FcmService {
       print('User granted notification permission: ${settings.authorizationStatus}');
 
       // 2. Get FCM Device Token
-      String? token = await _fcm.getToken();
+      String? token = await fcm.getToken();
       print('FCM Registration Token: $token');
 
       // 3. Handle foreground messages
@@ -46,7 +53,7 @@ class FcmService {
       });
 
       // 5. Check if app was opened from terminated state by a notification
-      RemoteMessage? initialMessage = await _fcm.getInitialMessage();
+      RemoteMessage? initialMessage = await fcm.getInitialMessage();
       if (initialMessage != null) {
         print('App opened from terminated state via notification');
         _handleDeepLink(initialMessage.data);
