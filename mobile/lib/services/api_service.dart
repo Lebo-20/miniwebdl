@@ -41,6 +41,7 @@ class ApiService {
         // Add device headers to all requests
         options.headers['X-Device-Id'] = deviceId;
         options.headers['X-Device-Fingerprint'] = fingerprint;
+        options.headers['User-Agent'] = 'Mozilla/5.0 (Linux; Android 10; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36';
         
         if (userId != null) {
           options.headers['X-User-Id'] = userId;
