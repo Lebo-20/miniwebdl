@@ -9,7 +9,7 @@ class ApiService {
   final SecureStorageService _storage = SecureStorageService();
   
   // Default Base URL for the production website backend
-  static const String defaultBaseUrl = 'https://teamdlbot.biz.id';
+  static const String defaultBaseUrl = 'http://192.168.1.8:3000';
   String _baseUrl = defaultBaseUrl;
 
   ApiService() {
